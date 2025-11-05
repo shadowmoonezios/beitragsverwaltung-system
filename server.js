@@ -28,6 +28,17 @@ app.get('/health', (req, res) => {
   res.status(200).send('Healthy');
 });
 
+// Error handling for uncaught exceptions and rejected promises
+process.on('uncaughtException', (err) => {
+  console.error('There was an uncaught error', err);
+  process.exit(1); // Exit the process to ensure the app doesn't continue in an invalid state
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Application specific logging, throwing an error, or other logic here
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
