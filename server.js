@@ -28,6 +28,11 @@ app.get('/health', (req, res) => {
   res.status(200).send('Healthy');
 });
 
+// 404 handling
+app.use((req, res) => {
+  res.status(404).send('Not Found');
+});
+
 // Error handling for uncaught exceptions and rejected promises
 process.on('uncaughtException', (err) => {
   console.error('There was an uncaught error', err);
