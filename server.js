@@ -17,6 +17,11 @@ app.get('/', (req, res) => {
   res.send('API is running');
 });
 
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).send('Healthy');
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
