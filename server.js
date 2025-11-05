@@ -9,7 +9,7 @@ app.use(express.json()); // Replaced body-parser with express.json()
 
 // Logging middleware
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
