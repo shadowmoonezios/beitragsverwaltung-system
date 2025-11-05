@@ -14,9 +14,17 @@ app.use((req, res, next) => {
 });
 
 // MongoDB connection
+if (!process.env.MONGO_URI) {
+  console.error('MONGO_URI is not defined in environment variables');
+  process.exit(1);
+}
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: false, connectTimeoutMS: 10000 })
   .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error(err)); // Handle connection errors gracefully
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  }); // Handle connection errors gracefully
 
 // Example routes
 app.get('/', (req, res) => {
